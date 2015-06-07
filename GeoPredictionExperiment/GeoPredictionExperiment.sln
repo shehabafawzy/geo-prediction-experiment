@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessorWorkerRole", "Proc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPredictionApp.WP8", "GeoPredictionApp.WP8\GeoPredictionApp.WP8.csproj", "{ADB89E7F-163D-4C92-964B-68FDB8BAD43D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B8139DDB-0FA7-4846-A3C7-DDEAA2986F91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,5 +67,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{216A1ECB-4E09-4CA9-A559-3215B847F238} = {6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}
+		{ADC96042-9308-4871-B9E2-A8A2A52181E8} = {6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}
+		{ADB89E7F-163D-4C92-964B-68FDB8BAD43D} = {B8139DDB-0FA7-4846-A3C7-DDEAA2986F91}
 	EndGlobalSection
 EndGlobal
