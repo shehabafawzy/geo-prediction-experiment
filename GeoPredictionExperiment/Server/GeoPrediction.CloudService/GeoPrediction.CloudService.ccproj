@@ -11,7 +11,7 @@
     <RootNamespace>GeoPredictionCloudService</RootNamespace>
     <AssemblyName>GeoPredictionCloudService</AssemblyName>
     <StartDevelopmentStorage>True</StartDevelopmentStorage>
-    <Name>GeoPredictionCloudService</Name>
+    <Name>GeoPrediction.CloudService</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,20 +37,20 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProcessorWorkerRole\ProcessorWorkerRole.csproj">
-      <Name>ProcessorWorkerRole</Name>
+    <Folder Include="GeoPrediction.ProcessorWorkerRoleContent" />
+  </ItemGroup>
+  <ItemGroup>
+    <DiagnosticsConfiguration Include="GeoPrediction.ProcessorWorkerRoleContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeoPredicition.ProcessorWorkerRole\GeoPrediction.ProcessorWorkerRole.csproj">
+      <Name>GeoPrediction.ProcessorWorkerRole</Name>
       <Project>{adc96042-9308-4871-b9e2-a8a2a52181e8}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>ProcessorWorkerRole</RoleName>
+      <RoleName>GeoPrediction.ProcessorWorkerRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ProcessorWorkerRoleContent\" />
-  </ItemGroup>
-  <ItemGroup>
-    <DiagnosticsConfiguration Include="ProcessorWorkerRoleContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
