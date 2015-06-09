@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure;
+﻿using Microsoft.Azure;
+using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
@@ -66,7 +67,7 @@ namespace GeoPrediction.Common
         {
             get
             {
-                string eventHubName = "InputEventHubName";
+                string eventHubName = "InputEventHub";
                 try
                 {
                     eventHubName = Convert.ToString(Configuration.GetConfigurationValue("InputEventHubName", "general"));
@@ -87,7 +88,7 @@ namespace GeoPrediction.Common
         {
             get
             {
-                string eventHubName = "OutputEventHubName";
+                string eventHubName = "OutputEventHub";
                 try
                 {
                     eventHubName = Convert.ToString(Configuration.GetConfigurationValue("OutputEventHubName", "general"));
@@ -108,7 +109,7 @@ namespace GeoPrediction.Common
         {
             get
             {
-                string configurationValue = "ConsumerGroupName";
+                string configurationValue = "ConsumerGroup";
                 try
                 {
                     configurationValue = Convert.ToString(Configuration.GetConfigurationValue("ConsumerGroupName", "general"));
