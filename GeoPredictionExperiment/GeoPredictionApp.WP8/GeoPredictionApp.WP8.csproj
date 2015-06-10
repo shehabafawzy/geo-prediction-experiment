@@ -136,6 +136,12 @@
   <ItemGroup>
     <Folder Include="Event\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Portable\GeoPrediction.Portable.Entities\GeoPrediction.Portable.Entities.csproj">
+      <Project>{84758b28-69d0-4bf5-8ba7-39617ea5867a}</Project>
+      <Name>GeoPrediction.Portable.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
