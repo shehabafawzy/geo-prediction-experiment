@@ -46,8 +46,9 @@ namespace GeoPrediction.ProcessorWorkerRole.EventProcessing
         {
             try
             {
-                if (events == null)
+                if (events == null || (events != null && events.Count() == 0))
                 {
+                    Trace.TraceInformation("ProcessEventsAsync called with no events to process. Returning.");
                     return;
                 }
                 var eventDataList = events as IList<EventData> ?? events.ToList();

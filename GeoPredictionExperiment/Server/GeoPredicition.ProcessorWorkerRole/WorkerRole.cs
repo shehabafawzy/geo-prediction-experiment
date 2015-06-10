@@ -48,7 +48,13 @@ namespace ProcessorWorkerRole
             ServicePointManager.DefaultConnectionLimit = 12;
 
             // Start Event Processing
-            StartEventProcessorAsync().Wait();
+            lock (this)
+            {
+                lock (this)
+                {
+                    StartEventProcessorAsync().Wait();
+                }
+            }
 
             bool result = base.OnStart();
 
@@ -81,8 +87,11 @@ namespace ProcessorWorkerRole
 
         private async Task StartEventProcessorAsync()
         {
-            // Get configuration. This is done once per role start. If you change the configuration on the table, you'll need to restart the role
+            Trace.TraceInformation("Starting event processor");
+            Trace.TraceInformation("Fetching onfiguration from Azure configuration table");
 
+            // Get configuration. This is done once per role start. If you change the configuration on the table, you'll need to restart the role
+            IsTraining = GeoPrediction.Common.Configuration.IsTrainingMode;
             ServiceBusConnectionString = GeoPrediction.Common.Configuration.ServiceBusConnectionString;
             StorageConnectionString = GeoPrediction.Common.Configuration.StorageConnectionString;
             TrainingTableName = GeoPrediction.Common.Configuration.TrainingTableName;
@@ -98,6 +107,8 @@ namespace ProcessorWorkerRole
 
             if (IsTraining)
             {
+                Trace.TraceInformation("Event processor in training mode");
+
                 // Get the default Consumer Group 
                 var inputEventProcessorHost = new EventProcessorHost(RoleEnvironment.CurrentRoleInstance.Id,
                                                                inputEventHubClient.Path.ToLower(),
@@ -121,11 +132,15 @@ namespace ProcessorWorkerRole
                 };
                 eventProcessorOptions.ExceptionReceived += eventProcessorOptions_ExceptionReceived;
 
+
+                Trace.TraceInformation("Registering event processor");
                 await inputEventProcessorHost.RegisterEventProcessorFactoryAsync(
                     new TrainingEventProcessorFactory<TrainingEventProcessor>(StorageConnectionString, TrainingTableName), eventProcessorOptions);
             }
             else
             {
+                Trace.TraceInformation("Event processor in live mode");
+
                 //await inputEventProcessorHost.RegisterEventProcessorFactoryAsync(
                 //    new ScoringEventProcessorFactory<ScoringEventProcessor>(storageConnectionString, trainingTableName), eventProcessorOptions); 
             }

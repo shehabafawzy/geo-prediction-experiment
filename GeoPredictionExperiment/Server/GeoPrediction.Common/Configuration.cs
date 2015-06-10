@@ -28,7 +28,7 @@ namespace GeoPrediction.Common
                 bool isTrainingMode = true;
                 try
                 {
-                    isTrainingMode = Convert.ToBoolean(Configuration.GetConfigurationValue("IsLiveMode", "general"));
+                    isTrainingMode = Convert.ToBoolean(Configuration.GetConfigurationValue("IsTrainingMode", "general"));
                 }
                 catch (Exception)
                 {
@@ -49,7 +49,7 @@ namespace GeoPrediction.Common
                 string trainingTableName = "TrainingTable";
                 try
                 {
-                    trainingTableName = Convert.ToString(Configuration.GetConfigurationValue("TrainingTable", "general"));
+                    trainingTableName = Convert.ToString(Configuration.GetConfigurationValue("TrainingTableName", "general"));
                 }
                 catch (Exception)
                 {

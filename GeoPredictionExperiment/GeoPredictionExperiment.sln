@@ -32,6 +32,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{2D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPrediction.Portable.Entities", "Portable\GeoPrediction.Portable.Entities\GeoPrediction.Portable.Entities.csproj", "{84758B28-69D0-4BF5-8BA7-39617EA5867A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F1D35801-B1D4-4FEB-AF15-AC447B2FA7C1}"
+	ProjectSection(SolutionItems) = preProject
+		Server\GeoPrediction.CloudService\bin\Release\app.publish\GeoPrediction.CloudService.cspkg = Server\GeoPrediction.CloudService\bin\Release\app.publish\GeoPrediction.CloudService.cspkg
+		Server\GeoPrediction.CloudService\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg = Server\GeoPrediction.CloudService\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
