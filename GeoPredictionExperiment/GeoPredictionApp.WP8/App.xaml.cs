@@ -33,6 +33,24 @@ namespace GeoPredictionApp.WP8
 
         private TransitionCollection transitions;
 
+        public static string DeviceUniqueIdentifier { get; set; }
+
+        /// <summary>
+        /// Computes a unique identifier for the device
+        /// </summary>
+        /// <returns></returns>
+        private static string GetDeviceID()
+        {
+            Windows.System.Profile.HardwareToken token = Windows.System.Profile.HardwareIdentification.GetPackageSpecificToken(null);
+            Windows.Storage.Streams.IBuffer hardwareId = token.Id;
+
+            Windows.Security.Cryptography.Core.HashAlgorithmProvider hasher = Windows.Security.Cryptography.Core.HashAlgorithmProvider.OpenAlgorithm(Windows.Security.Cryptography.Core.HashAlgorithmNames.Md5);
+            Windows.Storage.Streams.IBuffer hashed = hasher.HashData(hardwareId);
+
+            string hashedString = Windows.Security.Cryptography.CryptographicBuffer.EncodeToHexString(hashed);
+            return hashedString;
+        }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -40,6 +58,7 @@ namespace GeoPredictionApp.WP8
         public App()
         {
             TelemetryClient = new TelemetryClient();
+            DeviceUniqueIdentifier = GetDeviceID();
 
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
