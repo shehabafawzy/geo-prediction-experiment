@@ -21,16 +21,6 @@
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
       </m3:VisualElements>
-<<<<<<< HEAD
-      <Extensions>
-        <Extension Category="windows.backgroundTasks">
-          <BackgroundTasks>
-            <m2:Task Type="location" />
-          </BackgroundTasks>
-        </Extension>
-      </Extensions>
-=======
->>>>>>> origin/master
     </Application>
   </Applications>
   <Capabilities>
