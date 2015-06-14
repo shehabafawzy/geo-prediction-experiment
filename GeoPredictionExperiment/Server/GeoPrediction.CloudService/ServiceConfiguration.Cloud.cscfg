@@ -4,6 +4,14 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="GeoPrediction.ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="cariot" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEGoaJN75RI+OT/B9lp7wdBUwDQYJKoZIhvcNAQEBBQAEggEAsRAQDqTSaYeemsngfipB4FBE1FnT7embFRWtmoVLlbZ7sOaTLhAZpV1iqEF2irEtPI6XoVRTLs64MKD/6r9Eai3BK+IWqIzKxtRrkZvTdWExu4ryQNyEzINscHu4M2y1ft+nbzruxYSVWaUp6SrY0C1u+W92tuq8Nryak4FD8X81157xQCNVCygDE5E462cPVVmw75O+BTBxLrRgfyj7UroSgfrf4g3xhcAg9jdCCUABU0twCssFLUJAMxsm7oEkHz5i5LvAepS9zN0ZahpEbHdXLmAsSsmbrS+WlBRMujUhh0vDClEWqNmCQAirGq3qqLEaDHK7FUwGf7jE3YcRjjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECHpDZDKviaXugBB4gF0jrtFt8K8wVh7bZaNL" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2018-06-13T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="684F05BE2ADCCA90CA15CA5E563FD18A35D9967C" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

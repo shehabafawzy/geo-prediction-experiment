@@ -17,6 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}"
 	ProjectSection(SolutionItems) = preProject
 		CreateEventHub.ps1 = CreateEventHub.ps1
+		CreateSharedAccessAuthorizationRule.ps1 = CreateSharedAccessAuthorizationRule.ps1
 		Deploy.ps1 = Deploy.ps1
 		SetupParameters.ps1 = SetupParameters.ps1
 		SetupParameters_template.ps1 = SetupParameters_template.ps1

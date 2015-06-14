@@ -80,7 +80,7 @@ namespace GeoPrediction.ProcessorWorkerRole.EventProcessing
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message + ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                Trace.TraceError(ex.ToString());
             }
         }
 
@@ -88,8 +88,11 @@ namespace GeoPrediction.ProcessorWorkerRole.EventProcessing
         {
             try
             {
-                Trace.TraceInformation("Closing partition {0}, {1}, {2}, {3}", context.EventHubPath, context.ConsumerGroupName, context.Lease.PartitionId, reason.ToString());
-
+                try
+                {
+                    Trace.TraceInformation("Closing partition {0}, {1}, {2}, {3}", context.EventHubPath, context.ConsumerGroupName, context.Lease.PartitionId, reason.ToString());
+                }
+                catch { /* No need to do anything about a tracing exception */}
 
                 if (reason == CloseReason.Shutdown)
                 {

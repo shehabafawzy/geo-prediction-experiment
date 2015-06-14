@@ -13,6 +13,12 @@ $serviceLocation="South Central US"
 # Service Bus Namespace
 $serviceBusNamespace="[your Service Bus Namespace]"
 
+# Event Hub shared access policy key name
+$eventHubSharedAccessPolicyKeyName="carsender"
+
+# Event Hub shared access policy TTL in minutes (10 years)
+$eventHubSharedAccessPolicyTTL="5259490"
+
 # Package URL
 $package_url="https://[your storage account].blob.core.windows.net/apppublish/package.cspkg?sv="
 

@@ -16,6 +16,10 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.ApplicationInsights;
+using GeoPredictionApp.WP8.Event;
+using GeoPredictionApp.WP8.CloudConfig;
+using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -33,7 +37,11 @@ namespace GeoPredictionApp.WP8
 
         private TransitionCollection transitions;
 
+        public static string ConfigurationStorageConnectionString { get; set; }
+
         public static string DeviceUniqueIdentifier { get; set; }
+
+        public static EventHubWrapper EventHubWrapper { get; set; }
 
         /// <summary>
         /// Computes a unique identifier for the device
@@ -59,9 +67,26 @@ namespace GeoPredictionApp.WP8
         {
             TelemetryClient = new TelemetryClient();
             DeviceUniqueIdentifier = GetDeviceID();
+            
+            // Connect to Azure Configuration Table to retrieve settings
+            ConfigurationStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=cariotstorage;AccountKey=9xtO8YO7QYqBN6M2g8wDcvBJXEW1vGTOqkI7+B37cp1SfxIhO6hFj/BcFI8OKDeTETGWVq7bHjtx+GMk12cWMw==";
+
 
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            // ensure general app exceptions are handled
+            this.UnhandledException += App_UnhandledException;
+        }
+
+
+        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            // Track the unhandled exception
+            App.TelemetryClient.TrackException(e.Exception);
+            var dialog = new MessageDialog(string.Format("{0}\n{1}",e.Message,e.Exception.StackTrace), "Unhandled exception");
+            await dialog.ShowAsync();
         }
 
         /// <summary>
@@ -70,8 +95,24 @@ namespace GeoPredictionApp.WP8
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            await Configuration.PopulateConfiguration();
+            if (Configuration.Configured)
+            {
+                // Initialize event hub wrapper with retrieved settings
+                EventHubWrapper = new EventHubWrapper
+                {
+                    EventHubName = Configuration.InputEventHubName,
+                    PublisherName = App.DeviceUniqueIdentifier,
+                    SenderKey = Configuration.EventHubSharedAccessPolicyKey,
+                    SenderKeyName = Configuration.EventHubSharedAccessPolicyKeyName,
+                    ServicebusNamespace = Configuration.ServiceBusNamespace,
+                    TTLMinutes = Configuration.EventHubSharedAccessPolicyTTL
+                };
+                EventHubWrapper.InitEventHubConnection();
+            }
+
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -154,5 +195,6 @@ namespace GeoPredictionApp.WP8
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
     }
 }

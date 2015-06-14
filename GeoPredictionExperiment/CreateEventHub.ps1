@@ -62,6 +62,8 @@ Param(
     [Int]$PartitionCount = 16,                      # optional    default to 16
     [Int]$MessageRetentionInDays = 7,               # optional    default to 7
     [String]$UserMetadata = $null,                  # optional    default to $null
+	[Parameter(Mandatory = $true)]
+    [Microsoft.ServiceBus.Messaging.AuthorizationRule]$AuthorizationRule,
     [String]$ConsumerGroupName = "MyConsumerGroup", # optional    default to "MyConsumerGroup"
     [String]$ConsumerGroupUserMetadata = $null,     # optional    default to $null
     [Parameter(Mandatory = $true)]
@@ -116,7 +118,23 @@ Write-Host "NamespaceManager object for the [$Namespace] namespace has been succ
 # Check if the event hub already exists
 if ($NamespaceManager.EventHubExists($Path))
 {
-    Write-Output "The [$Path] event hub already exists in the [$Namespace] namespace." 
+    Write-Output "The [$Path] event hub already exists in the [$Namespace] namespace. Updating it." 
+	 $EventHubDescription = $NamespaceManager.GetEventHub($Path);	
+	 $Rule = $null
+	 $RuleExists = $EventHubDescription.Authorization.TryGetSharedAccessAuthorizationRule($AuthorizationRule.KeyName,[ref]$Rule)
+	 if($RuleExists)
+	 {
+		Write-Output "Rule exists before, removing it and adding the updated rule"
+		# Remove and add the new rule
+		$EventHubDescription.Authorization.Remove($Rule);
+		$EventHubDescription.Authorization.Add($AuthorizationRule);
+	 }
+	 else {
+		Write-Output "Rule doesn't exist, might have been deleted from the portal. Adding it."
+		# Doesn't exist, might have been deleted from the portal. Add it
+		$EventHubDescription.Authorization.Add($AuthorizationRule);
+	 }
+	 $NamespaceManager.UpdateEventHub($EventHubDescription);
 }
 else
 {
@@ -125,7 +143,9 @@ else
     $EventHubDescription.PartitionCount = $PartitionCount
     $EventHubDescription.MessageRetentionInDays = $MessageRetentionInDays
     $EventHubDescription.UserMetadata = $UserMetadata
-    $NamespaceManager.CreateEventHub($EventHubDescription);
+	$EventHubDescription.Authorization.Add($AuthorizationRule);
+	$NamespaceManager.CreateEventHub($EventHubDescription);
+
     Write-Host "The [$Path] event hub in the [$Namespace] namespace has been successfully created."
 }
 

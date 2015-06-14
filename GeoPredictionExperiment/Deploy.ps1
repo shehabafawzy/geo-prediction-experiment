@@ -111,13 +111,15 @@ try
     Write-Host -ForegroundColor Green -BackgroundColor Black "Setting Default Storage Account for subscription as $storageAccountName"            
 	Set-AzureSubscription -SubscriptionId $azureSubscriptionId  -CurrentStorageAccountName $storageAccountName
 	
+	# Create the AuthorizationPolicy for the Event Hub
+	$authRule = .\CreateSharedAccessAuthorizationRule -SharedAccessPolicyKeyName $eventHubSharedAccessPolicyKeyName
 
 	# Create Service Bus Namespace and Event Hub
     Write-Host -ForegroundColor Green -BackgroundColor Black "Creating Input Event Hub $inputEventHubName in Service Bus Namespace $serviceBusNamespace"                
-	.\CreateEventHub -Path $inputEventHubName -PartitionCount $inputEventHubPartitionCount -MessageRetentionInDays $inputEventHubMessageRetentionInDays -UserMetadata 'This event hub is used by the devices of the IoT solution' -ConsumerGroupName $consumerGroupName -ConsumerGroupUserMetadata 'This consumer group is used by the IoT solution' -Namespace $serviceBusNamespace -Location $serviceLocation
+	.\CreateEventHub -AuthorizationRule $authRule -Path $inputEventHubName -PartitionCount $inputEventHubPartitionCount -MessageRetentionInDays $inputEventHubMessageRetentionInDays -UserMetadata 'This event hub is used by the devices of the IoT solution' -ConsumerGroupName $consumerGroupName -ConsumerGroupUserMetadata 'This consumer group is used by the IoT solution' -Namespace $serviceBusNamespace -Location $serviceLocation
 	
     Write-Host -ForegroundColor Green -BackgroundColor Black "Creating Output Event Hub $outputEventHubName in Service Bus Namespace $serviceBusNamespace"                          
-    .\CreateEventHub -Path $outputEventHubName -PartitionCount $outputEventHubPartitionCount -MessageRetentionInDays $outputEventHubMessageRetentionInDays -UserMetadata 'This event hub is used by stream analytics of the IoT solution' -ConsumerGroupName $consumerGroupName -ConsumerGroupUserMetadata 'This consumer group is used the stream analytics of the IoT solution' -Namespace $serviceBusNamespace -Location $serviceLocation
+    .\CreateEventHub -AuthorizationRule $authRule -Path $outputEventHubName -PartitionCount $outputEventHubPartitionCount -MessageRetentionInDays $outputEventHubMessageRetentionInDays -UserMetadata 'This event hub is used by stream analytics of the IoT solution' -ConsumerGroupName $consumerGroupName -ConsumerGroupUserMetadata 'This consumer group is used the stream analytics of the IoT solution' -Namespace $serviceBusNamespace -Location $serviceLocation
 
 	# Get the connection string of the service bus
 	$serviceBusConnectionString = (Get-AzureSBNamespace -Name $serviceBusNamespace).ConnectionString
@@ -153,6 +155,9 @@ try
 	InsertConfig -PartitionKey "general" -RowKey "ServiceBusConnectionString" -value $serviceBusConnectionString -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
 	InsertConfig -PartitionKey "general" -RowKey "StorageConnectionString" -value $sExternalConnString -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
 	InsertConfig -PartitionKey "general" -RowKey "TrainingTableName" -value $trainingTableName -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
+	InsertConfig -PartitionKey "client" -RowKey "EventHubSharedAccessPolicyKeyName" -value $eventHubSharedAccessPolicyKeyName -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
+	InsertConfig -PartitionKey "client" -RowKey "EventHubSharedAccessPolicyKey" -value $authRule.PrimaryKey -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
+	InsertConfig -PartitionKey "client" -RowKey "EventHubSharedAccessPolicyTTL" -value $eventHubSharedAccessPolicyTTL -accountName $storageAccountName -accountKey $sKey -tableName $configurationTableName  
 
 
 	# Deploy Cloud Services

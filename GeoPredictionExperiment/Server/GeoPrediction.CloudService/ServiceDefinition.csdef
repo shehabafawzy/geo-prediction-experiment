@@ -4,5 +4,9 @@
     <ConfigurationSettings>
       <Setting name="GeoPrediction.ConfigurationStorageConnectionString" />
     </ConfigurationSettings>
+    <Imports>
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
   </WorkerRole>
 </ServiceDefinition>

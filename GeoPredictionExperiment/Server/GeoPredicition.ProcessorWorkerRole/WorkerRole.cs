@@ -48,13 +48,13 @@ namespace ProcessorWorkerRole
             ServicePointManager.DefaultConnectionLimit = 12;
 
             // Start Event Processing
-            lock (this)
-            {
-                lock (this)
-                {
+            //lock (this)
+            //{
+            //    lock (this)
+            //    {
                     StartEventProcessorAsync().Wait();
-                }
-            }
+            //    }
+            //}
 
             bool result = base.OnStart();
 
@@ -155,10 +155,7 @@ namespace ProcessorWorkerRole
             }
 
             // Trace Exception 
-            Trace.TraceError(e.Exception.Message +
-                                            e.Exception.InnerException != null ?
-                                            e.Exception.InnerException.Message :
-                                            string.Empty);
+            Trace.TraceError(e.Exception.ToString());
         }
     }
 
