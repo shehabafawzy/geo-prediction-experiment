@@ -60,7 +60,7 @@ namespace GeoPredictionApp.WP8
                 var latitude = args.Position.Coordinate.Point.Position.Latitude;
                 var longitude = args.Position.Coordinate.Point.Position.Longitude;
                 var heading = args.Position.Coordinate.Heading;
-                var speed = args.Position.Coordinate.Speed;
+                var speed = args.Position.Coordinate.Speed * 3.6; // convert m/s to km/h
                 var timestamp = args.Position.Coordinate.Timestamp;
 
                 // Create a reading
