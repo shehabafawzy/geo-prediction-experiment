@@ -21,6 +21,7 @@
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
       </m3:VisualElements>
+<<<<<<< HEAD
       <Extensions>
         <Extension Category="windows.backgroundTasks">
           <BackgroundTasks>
@@ -28,9 +29,12 @@
           </BackgroundTasks>
         </Extension>
       </Extensions>
+=======
+>>>>>>> origin/master
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClientServer" />
+    <DeviceCapability Name="location" />
   </Capabilities>
 </Package>
