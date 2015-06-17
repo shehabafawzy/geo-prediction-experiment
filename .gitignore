@@ -157,3 +157,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+GeoPredictionExperiment/CreateQueue.ps1
+GeoPredictionExperiment/CreateSubscription.ps1
+GeoPredictionExperiment/CreateTopic.ps1

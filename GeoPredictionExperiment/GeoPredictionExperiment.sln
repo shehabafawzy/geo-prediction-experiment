@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7E0276D0-0352-461E-8F81-CCF5E3FE810F}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPredictionApp.WP8", "GeoPredictionApp.WP8\GeoPredictionApp.WP8.csproj", "{ADB89E7F-163D-4C92-964B-68FDB8BAD43D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{B8139DDB-0FA7-4846-A3C7-DDEAA2986F91}"
@@ -33,10 +26,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{2D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPrediction.Portable.Entities", "Portable\GeoPrediction.Portable.Entities\GeoPrediction.Portable.Entities.csproj", "{84758B28-69D0-4BF5-8BA7-39617EA5867A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{F1D35801-B1D4-4FEB-AF15-AC447B2FA7C1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A7758C7-3A68-4D8D-ACE0-3967AA0E60EC}"
 	ProjectSection(SolutionItems) = preProject
-		Server\GeoPrediction.CloudService\bin\Release\app.publish\GeoPrediction.CloudService.cspkg = Server\GeoPrediction.CloudService\bin\Release\app.publish\GeoPrediction.CloudService.cspkg
-		Server\GeoPrediction.CloudService\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg = Server\GeoPrediction.CloudService\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
 Global

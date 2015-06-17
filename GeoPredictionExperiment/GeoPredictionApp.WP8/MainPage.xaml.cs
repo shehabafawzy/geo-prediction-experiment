@@ -52,7 +52,7 @@ namespace GeoPredictionApp.WP8
             this.DataContext = DefaultViewModel;
         }
 
-        void GeoLocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        async void GeoLocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
             try
             {
@@ -79,15 +79,15 @@ namespace GeoPredictionApp.WP8
                     ReverseGeocode = "N/A"
                 };
 
-                App.EventHubWrapper.SendMessageAsync(JsonConvert.SerializeObject(reading));
-                 SuccessCount++;
+                await App.EventHubWrapper.SendMessageAsync(JsonConvert.SerializeObject(reading));
+                SuccessCount++;
                 DefaultViewModel["SuccessCounter"] = SuccessCount;
             }
             catch (Exception e)
             {
                 ErrorCount++;
                 DefaultViewModel["ErrorCounter"] = ErrorCount;
-                DefaultViewModel["LastError"] = e.Message;
+                DefaultViewModel["LastError"] = e.Message + "\n" + e.StackTrace;
             }
             finally
             {

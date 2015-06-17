@@ -90,7 +90,7 @@ namespace ProcessorWorkerRole
             Trace.TraceInformation("Starting event processor");
             Trace.TraceInformation("Fetching onfiguration from Azure configuration table");
 
-            // Get configuration. This is done once per role start. If you change the configuration on the table, you'll need to restart the role
+            // Get configuration. This is done once per role start. If you change the configuration on the table, you'll need to restart the role            
             IsTraining = GeoPrediction.Common.Configuration.IsTrainingMode;
             ServiceBusConnectionString = GeoPrediction.Common.Configuration.ServiceBusConnectionString;
             StorageConnectionString = GeoPrediction.Common.Configuration.StorageConnectionString;

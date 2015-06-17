@@ -58,7 +58,7 @@ namespace GeoPredictionApp.WP8.Event
         /// Send message to Azure Event Hub using HTTP/REST API
         /// </summary>
         /// <param name="message"></param>
-        public async void SendMessageAsync(string message)
+        public async Task SendMessageAsync(string message)
         {
             if (this.EventHubConnectionInitialized)
             {
@@ -69,12 +69,12 @@ namespace GeoPredictionApp.WP8.Event
 
                     if (postResult.IsSuccessStatusCode)
                     {
-                        Debug.WriteLine("Message Sent: {0}", content);
-                        App.TelemetryClient.TrackEvent("MessageSent");
+                        //Debug.WriteLine("Message Sent: {0}", content);
+                        //App.TelemetryClient.TrackEvent("MessageSent");
                     }
                     else
                     {
-                        App.TelemetryClient.TrackEvent("MessageSNotent");
+                        App.TelemetryClient.TrackEvent("MessageNotSent");
                         Debug.WriteLine("Failed sending message: {0}", postResult.ReasonPhrase);
                     }
                 }
