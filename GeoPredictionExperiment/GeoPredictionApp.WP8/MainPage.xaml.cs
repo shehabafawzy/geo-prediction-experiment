@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Background;
 using Windows.Devices.Geolocation;
+using Windows.Devices.Geolocation.Geofencing;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -80,7 +82,7 @@ namespace GeoPredictionApp.WP8
                 };
 
                 App.EventHubWrapper.SendMessageAsync(JsonConvert.SerializeObject(reading));
-                 SuccessCount++;
+                SuccessCount++;
                 DefaultViewModel["SuccessCounter"] = SuccessCount;
             }
             catch (Exception e)
@@ -172,6 +174,42 @@ namespace GeoPredictionApp.WP8
         private void stopAndQuitButton_Click(object sender, RoutedEventArgs e)
         {
             App.Current.Exit();
+        }
+
+        private async void backgroundTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            Geoposition currentPosition = await GeoLocator.GetGeopositionAsync(TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(30));
+            Geocircle fenceCircle = new Geocircle(currentPosition.Coordinate.Point.Position, 25);
+            Geofence newFence = new Geofence("Dummy", fenceCircle, MonitoredGeofenceStates.Exited, false, TimeSpan.FromSeconds(1), DateTimeOffset.Now, TimeSpan.FromDays(30));
+            GeofenceMonitor.Current.Geofences.Add(newFence);
+            var LocationTaskBuilder = new BackgroundTaskBuilder
+            {
+                Name = "GeoPredictionLocationBackgroundTask",
+                TaskEntryPoint = "GeoPrediction.BackgroundTasks.LocationBackgroundTask"
+            };
+
+            // Add GeoFence Trigger
+            var trigger = new LocationTrigger(LocationTriggerType.Geofence);
+            LocationTaskBuilder.SetTrigger(trigger);
+            // Ensure there is an internet connection before the background task is launched. 
+            var condition = new SystemCondition(SystemConditionType.InternetAvailable);
+            LocationTaskBuilder.AddCondition(condition); 
+
+            var geofenceTask = LocationTaskBuilder.Register();
+            geofenceTask.Completed += (s, args) =>
+            {
+                var geoReports = GeofenceMonitor.Current.ReadReports();
+                //foreach (var geofenceStateChangeReport in geoReports)
+                //{
+                //    var id = geofenceStateChangeReport.Geofence.Id;
+                //    var newState = geofenceStateChangeReport.NewState.ToString();
+                //    Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                //        new MessageDialog(newState + " : " + id)
+                //        .ShowAsync());
+                //}
+            };
+
         }
     }
 }

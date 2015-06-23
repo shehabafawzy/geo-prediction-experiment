@@ -49,6 +49,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="1">
+                <Button x:Name="backgroundTaskButton" Content="BackgroundTask" Click="backgroundTaskButton_Click" />
                 <Button x:Name="stopAndQuitButton" Click="stopAndQuitButton_Click">Stop and quit</Button>
             </StackPanel>
         </Grid>
