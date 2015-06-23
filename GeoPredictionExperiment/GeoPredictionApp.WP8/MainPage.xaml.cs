@@ -12,6 +12,8 @@ using Windows.Devices.Geolocation.Geofencing;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +56,7 @@ namespace GeoPredictionApp.WP8
             this.DataContext = DefaultViewModel;
         }
 
-        void GeoLocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        async void GeoLocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
             try
             {
@@ -81,15 +83,15 @@ namespace GeoPredictionApp.WP8
                     ReverseGeocode = "N/A"
                 };
 
-                App.EventHubWrapper.SendMessageAsync(JsonConvert.SerializeObject(reading));
-                SuccessCount++;
+                await App.EventHubWrapper.SendMessageAsync(JsonConvert.SerializeObject(reading));
+                 SuccessCount++;
                 DefaultViewModel["SuccessCounter"] = SuccessCount;
             }
             catch (Exception e)
             {
                 ErrorCount++;
                 DefaultViewModel["ErrorCounter"] = ErrorCount;
-                DefaultViewModel["LastError"] = e.Message;
+                DefaultViewModel["LastError"] = e.Message + "\n" + e.StackTrace;
             }
             finally
             {
@@ -182,7 +184,11 @@ namespace GeoPredictionApp.WP8
             Geoposition currentPosition = await GeoLocator.GetGeopositionAsync(TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(30));
             Geocircle fenceCircle = new Geocircle(currentPosition.Coordinate.Point.Position, 25);
             Geofence newFence = new Geofence("Dummy", fenceCircle, MonitoredGeofenceStates.Exited, false, TimeSpan.FromSeconds(1), DateTimeOffset.Now, TimeSpan.FromDays(30));
-            GeofenceMonitor.Current.Geofences.Add(newFence);
+            if (GeofenceMonitor.Current.Geofences.Count(g => g.Id == newFence.Id) > 0)
+            {
+                GeofenceMonitor.Current.Geofences.Remove(GeofenceMonitor.Current.Geofences.First(g => g.Id == newFence.Id));
+            }
+            GeofenceMonitor.Current.Geofences.Add(newFence); 
             var LocationTaskBuilder = new BackgroundTaskBuilder
             {
                 Name = "GeoPredictionLocationBackgroundTask",
@@ -200,14 +206,14 @@ namespace GeoPredictionApp.WP8
             geofenceTask.Completed += (s, args) =>
             {
                 var geoReports = GeofenceMonitor.Current.ReadReports();
-                //foreach (var geofenceStateChangeReport in geoReports)
-                //{
-                //    var id = geofenceStateChangeReport.Geofence.Id;
-                //    var newState = geofenceStateChangeReport.NewState.ToString();
-                //    Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                //        new MessageDialog(newState + " : " + id)
-                //        .ShowAsync());
-                //}
+                foreach (var geofenceStateChangeReport in geoReports)
+                {
+                    var id = geofenceStateChangeReport.Geofence.Id;
+                    var newState = geofenceStateChangeReport.NewState.ToString();
+                    Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        new MessageDialog(newState + " : " + id)
+                        .ShowAsync());
+                }
             };
 
         }

@@ -68,7 +68,7 @@ namespace GeoPredictionApp.WP8
         {
             TelemetryClient = new TelemetryClient();
             DeviceUniqueIdentifier = GetDeviceID();
-            
+
             // Connect to Azure Configuration Table to retrieve settings
             ConfigurationStorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=cariotstorage;AccountKey=9xtO8YO7QYqBN6M2g8wDcvBJXEW1vGTOqkI7+B37cp1SfxIhO6hFj/BcFI8OKDeTETGWVq7bHjtx+GMk12cWMw==";
 
@@ -86,8 +86,13 @@ namespace GeoPredictionApp.WP8
             e.Handled = true;
             // Track the unhandled exception
             App.TelemetryClient.TrackException(e.Exception);
-            var dialog = new MessageDialog(string.Format("{0}\n{1}",e.Message,e.Exception.StackTrace), "Unhandled exception");
-            await dialog.ShowAsync();
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+            (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+
+                var dialog = new MessageDialog(string.Format("{0}\n{1}", e.Message, e.Exception.StackTrace), "Unhandled exception");
+                await dialog.ShowAsync();
+            });
         }
 
         /// <summary>
