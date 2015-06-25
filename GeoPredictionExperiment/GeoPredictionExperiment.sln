@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPredictionApp.WP8", "GeoPredictionApp.WP8\GeoPredictionApp.WP8.csproj", "{ADB89E7F-163D-4C92-964B-68FDB8BAD43D}"
 EndProject
@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6A7758
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoPrediction.BackgroundTasks", "GeoPrediction.BackgroundTasks\GeoPrediction.BackgroundTasks.csproj", "{6D92047C-2833-4F8C-A361-A81FCECF8D9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,14 @@ Global
 		{84758B28-69D0-4BF5-8BA7-39617EA5867A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84758B28-69D0-4BF5-8BA7-39617EA5867A}.Release|ARM.ActiveCfg = Release|Any CPU
 		{84758B28-69D0-4BF5-8BA7-39617EA5867A}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +113,6 @@ Global
 		{216A1ECB-4E09-4CA9-A559-3215B847F238} = {6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}
 		{9A148F29-C784-4EF9-9FF7-0E2A58808CB7} = {6F6A9C3F-9EFA-4DCE-A03A-35D8CE823FA8}
 		{84758B28-69D0-4BF5-8BA7-39617EA5867A} = {2DDFF642-46A9-4923-A7D4-4CA258EEEF6A}
+		{6D92047C-2833-4F8C-A361-A81FCECF8D9C} = {2DDFF642-46A9-4923-A7D4-4CA258EEEF6A}
 	EndGlobalSection
 EndGlobal

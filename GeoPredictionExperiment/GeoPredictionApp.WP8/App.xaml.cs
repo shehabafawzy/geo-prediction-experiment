@@ -20,6 +20,7 @@ using GeoPredictionApp.WP8.Event;
 using GeoPredictionApp.WP8.CloudConfig;
 using Windows.UI.Popups;
 using System.Threading.Tasks;
+using Windows.System.Display;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -42,7 +43,7 @@ namespace GeoPredictionApp.WP8
         public static string DeviceUniqueIdentifier { get; set; }
 
         public static EventHubWrapper EventHubWrapper { get; set; }
-
+        public static DisplayRequest dispRequest = null;
         /// <summary>
         /// Computes a unique identifier for the device
         /// </summary>
@@ -160,7 +161,14 @@ namespace GeoPredictionApp.WP8
 
                 rootFrame.ContentTransitions = null;
                 rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                if (dispRequest == null)
+                {
 
+                    // Activate a display-required request. If successful, the screen is 
+                    // guaranteed not to turn off automatically due to user inactivity.
+                    dispRequest = new DisplayRequest();
+                    dispRequest.RequestActive();
+                }
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
