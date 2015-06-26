@@ -3,5 +3,24 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GeoPredictionApp.WP8">
-
+    <Application.Resources>
+        <Color x:Key="GeoWhite">#FBF9F3</Color>
+        <Color x:Key="GeoBlue">#4F5061</Color>
+        <Color x:Key="GeoLightGray">#E9E4DE</Color>
+        <Color x:Key="GeoDarkGray">#ACACAC</Color>
+        <Color x:Key="GeoOtherPurple">#FF8B80B2</Color>
+        <Color x:Key="GeoDarkPurple">#81779D</Color>
+        <Color x:Key="GeoLightPurple">#A292C7</Color>
+        <Color x:Key="GeoRed">#FFFF3366</Color>
+        <Color x:Key="GeoGreen">#FF50D2C2</Color>
+        <SolidColorBrush x:Key="GeoWhiteBrush" Color="{StaticResource GeoWhite}"/>
+        <SolidColorBrush x:Key="GeoBlueBrush" Color="{StaticResource GeoBlue}"/>
+        <SolidColorBrush x:Key="GeoLightGrayBrush" Color="{StaticResource GeoLightGray}"/>
+        <SolidColorBrush x:Key="GeoDarkGrayBrush" Color="{StaticResource GeoDarkGray}"/>
+        <SolidColorBrush x:Key="GeoOtherPurpleBrush" Color="{StaticResource GeoOtherPurple}"/>
+        <SolidColorBrush x:Key="GeoDarkPurpleBrush" Color="{StaticResource GeoDarkPurple}"/>
+        <SolidColorBrush x:Key="GeoLightPurpleBrush" Color="{StaticResource GeoLightPurple}"/>
+        <SolidColorBrush x:Key="GeoRedBrush" Color="{StaticResource GeoRed}"/>
+        <SolidColorBrush x:Key="GeoGreenBrush" Color="{StaticResource GeoGreen}"/>
+    </Application.Resources>
 </Application>
