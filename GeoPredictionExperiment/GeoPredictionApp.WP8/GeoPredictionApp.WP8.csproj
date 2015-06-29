@@ -93,6 +93,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CloudConfig\Configuration.cs" />
+    <Compile Include="Common\Coordinates.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -115,6 +116,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\2_072912_Gaponyuk.jpg" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\Rocks-and-Waves.jpg" />
     <Content Include="Assets\SmallLogo.scale-240.png" />

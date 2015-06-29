@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +26,7 @@ namespace GeoPredictionApp.WP8.Views
         public LoginPage()
         {
             this.InitializeComponent();
+            LoginStoryboard.Begin();
         }
 
         /// <summary>
@@ -32,13 +34,26 @@ namespace GeoPredictionApp.WP8.Views
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.
         /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync(); 
         }
 
-        private void SignInButton_Click(object sender, RoutedEventArgs e)
+        private async void SignInButton_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(UsernameTextBox.Text))
+            {
+                await new Windows.UI.Popups.MessageDialog("Please enter a username or choose anonymous.").ShowAsync();
+                return;
+            }
+            ApplicationData.Current.LocalSettings.Values["Username"] = UsernameTextBox.Text;
+            Frame.Navigate(typeof(DetailsPage));
+        }
 
+        private void AnonymousTextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values["Username"] = "Anonymous";
+            Frame.Navigate(typeof(DetailsPage));
         }
     }
 }
