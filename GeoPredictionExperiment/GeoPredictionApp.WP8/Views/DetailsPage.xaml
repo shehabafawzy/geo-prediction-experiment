@@ -56,12 +56,12 @@
                     <StackPanel HorizontalAlignment="Center">
                         <TextBlock Text="Distance" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="{StaticResource GeoGreenBrush}" />
                         <TextBlock Text="Km" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" Foreground="{StaticResource GeoLightPurpleBrush}"/>
-                        <TextBlock x:Name="DistanceTextBlock" Text="0" FontSize="60" HorizontalAlignment="Center" Foreground="{StaticResource GeoDarkPurpleBrush}"/>
+                        <TextBlock x:Name="DistanceTextBlock" Text="0" FontSize="50" HorizontalAlignment="Center" Foreground="{StaticResource GeoDarkPurpleBrush}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                         <TextBlock Text="Time" HorizontalAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}" Foreground="{StaticResource GeoGreenBrush}" />
-                        <TextBlock Text="hours:minutes" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" Foreground="{StaticResource GeoLightPurpleBrush}"/>
-                        <TextBlock x:Name="TimeTextBlock" Text="00:00" FontSize="60" HorizontalAlignment="Center" Foreground="{StaticResource GeoDarkPurpleBrush}"/>
+                        <TextBlock Text="hh:mm:ss" Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" Foreground="{StaticResource GeoLightPurpleBrush}"/>
+                        <TextBlock x:Name="TimeTextBlock" Text="00:00:00" FontSize="50" HorizontalAlignment="Center" Foreground="{StaticResource GeoDarkPurpleBrush}"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
@@ -73,7 +73,7 @@
                     <Button x:Name="StartTripButton" Foreground="White" Content="Start" BorderThickness="0" HorizontalAlignment="Stretch" Click="StartTripButton_Click" Style="{StaticResource TransparentButtonStyle}" />
                 </Border>
                 <Border Margin="20,10,0,0" BorderThickness="1" Width="180" Height="60" CornerRadius="30" BorderBrush="{StaticResource GeoRedBrush}" Background="{StaticResource GeoRedBrush}" >
-                    <Button x:Name="StopTripButton" Foreground="White" Content="Stop" BorderThickness="0" HorizontalAlignment="Stretch" Click="StopTripButton_Click" Style="{StaticResource TransparentButtonStyle}" />
+                    <Button x:Name="StopTripButton" IsEnabled="False" Foreground="White" Content="Stop" BorderThickness="0" HorizontalAlignment="Stretch" Click="StopTripButton_Click" Style="{StaticResource TransparentButtonStyle}" />
                 </Border>
             </StackPanel>
         </StackPanel>

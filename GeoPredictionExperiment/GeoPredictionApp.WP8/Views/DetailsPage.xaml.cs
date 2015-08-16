@@ -51,10 +51,10 @@ namespace GeoPredictionApp.WP8.Views
             dispatcherTimer.Tick += (s,e) => {
                 if (StartTrip)
                 {
-                    TimeTextBlock.Text = (System.DateTime.Now.TimeOfDay - StartDateTime.TimeOfDay).ToString("hh\\:mm");
+                    TimeTextBlock.Text = (System.DateTime.Now.TimeOfDay - StartDateTime.TimeOfDay).ToString("hh\\:mm\\:ss");
                 }
             };
-            dispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
         }
         async void GeoLocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
@@ -89,7 +89,7 @@ namespace GeoPredictionApp.WP8.Views
                     SpeedTextBlock.Text = speed.ToString();
                     if (LastCoordinate != null)
                     {
-                        TotalDistance += Coordinates.Distance(LastCoordinate.Latitude, LastCoordinate.Longitude, latitude, longitude, 'K');
+                        TotalDistance += Coordinates.Distance(LastCoordinate.Point.Position.Latitude, LastCoordinate.Point.Position.Longitude, latitude, longitude, 'K');
                         DistanceTextBlock.Text = TotalDistance.ToString(); 
                     }
                     LastCoordinate = args.Position.Coordinate;
@@ -135,8 +135,10 @@ namespace GeoPredictionApp.WP8.Views
                 StartTrip = true;
                 DistanceTextBlock.Text = "0";
                 SpeedTextBlock.Text = "0";
-                TimeTextBlock.Text = "00:00";
-                dispatcherTimer.Start(); 
+                TimeTextBlock.Text = "00:00:00";
+                dispatcherTimer.Start();
+                StartTripButton.IsEnabled = false;
+                StopTripButton.IsEnabled = true;
             }
         }
 
@@ -144,6 +146,8 @@ namespace GeoPredictionApp.WP8.Views
         {
             dispatcherTimer.Stop();
             StartTrip = false;
+            StartTripButton.IsEnabled = true;
+            StopTripButton.IsEnabled = false;
         }
 
         private void ChangeNameAppBarButton_Click(object sender, RoutedEventArgs e)
