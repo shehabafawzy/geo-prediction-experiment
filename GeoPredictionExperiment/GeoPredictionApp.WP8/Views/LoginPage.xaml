@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="GeoPredictionApp.WP8.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GeoPredictionApp.WP8.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Page.Resources>
+		<Storyboard x:Name="LoginStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="stackPanel">
+				<EasingDoubleKeyFrame KeyTime="0" Value="30"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0.275"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</Page.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush AlignmentX="Left" Stretch="UniformToFill" ImageSource="ms-appx:///Assets/Rocks-and-Waves.jpg"/>
+        </Grid.Background>
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-27"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#DC8B80B2"/>
+                    <GradientStop Color="#AC000000" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <StackPanel x:Name="stackPanel" VerticalAlignment="Bottom" Margin="20,0,20,40" RenderTransformOrigin="0.5,0.5" >
+            	<StackPanel.RenderTransform>
+            		<CompositeTransform/>
+            	</StackPanel.RenderTransform>
+                <TextBox x:Name="UsernameTextBox" Background="Transparent" BorderThickness="0,0,0,0.5" PlaceholderText="Username" Foreground="White" Style="{StaticResource TransparentTextBoxStyle}" />
+                <Border BorderThickness="1" Height="60" CornerRadius="30" BorderBrush="{StaticResource GeoRedBrush}" Background="{StaticResource GeoRedBrush}" Margin="0,10,0,0">
+                    <Button x:Name="SignInButton" Content="Sign in" BorderThickness="0" HorizontalAlignment="Stretch" Click="SignInButton_Click" FontFamily="Global User Interface" Style="{StaticResource TransparentButtonStyle}" />
+                </Border>
+                <TextBlock x:Name="AnonymousTextBlock" HorizontalAlignment="Center" Margin="0,40,0,0" FontSize="16" Tapped="AnonymousTextBlock_Tapped">
+                    <Run Foreground="{StaticResource GeoDarkGrayBrush}" Text="Sign in as " />
+                    <Run Foreground="{StaticResource GeoLightGrayBrush}" Text="Anonymous" />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

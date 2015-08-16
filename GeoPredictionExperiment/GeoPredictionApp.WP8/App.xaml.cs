@@ -21,6 +21,8 @@ using GeoPredictionApp.WP8.CloudConfig;
 using Windows.UI.Popups;
 using System.Threading.Tasks;
 using Windows.System.Display;
+using GeoPredictionApp.WP8.Views;
+using Windows.Storage;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -172,9 +174,19 @@ namespace GeoPredictionApp.WP8
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("Username"))
                 {
-                    throw new Exception("Failed to create initial page");
+                    if (!rootFrame.Navigate(typeof(LoginPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    } 
+                }
+                else
+                {
+                    if (!rootFrame.Navigate(typeof(DetailsPage), e.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    } 
                 }
             }
 
