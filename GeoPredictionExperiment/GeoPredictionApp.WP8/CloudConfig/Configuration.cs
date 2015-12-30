@@ -19,11 +19,11 @@ namespace GeoPredictionApp.WP8.CloudConfig
         {
             try
             {
-                InputEventHubName = Convert.ToString(await Configuration.GetConfigurationValue("InputEventHubName", "general"));
-                ServiceBusNamespace = Convert.ToString(await Configuration.GetConfigurationValue("ServiceBusNamespace", "general"));
-                EventHubSharedAccessPolicyKey = Convert.ToString(await Configuration.GetConfigurationValue("EventHubSharedAccessPolicyKey", "client"));
-                EventHubSharedAccessPolicyKeyName = Convert.ToString(await Configuration.GetConfigurationValue("EventHubSharedAccessPolicyKeyName", "client"));
-                EventHubSharedAccessPolicyTTL = Convert.ToInt32(await Configuration.GetConfigurationValue("EventHubSharedAccessPolicyTTL", "client"));
+                InputEventHubName = "carmonitoreh";
+                ServiceBusNamespace = "carmonitorns";
+                EventHubSharedAccessPolicyKey = "f8jvK798EEI1fXVvzobGcgZsW0CWFYK2RPmlVTd/nJI=";
+                EventHubSharedAccessPolicyKeyName = "Sender";
+                EventHubSharedAccessPolicyTTL = 525600;
                 Configured = true;
             }
             catch (Exception e)

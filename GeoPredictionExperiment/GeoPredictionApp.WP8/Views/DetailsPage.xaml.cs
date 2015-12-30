@@ -11,6 +11,7 @@ using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -86,11 +87,17 @@ namespace GeoPredictionApp.WP8.Views
                     };
 
                     //update ui
-                    SpeedTextBlock.Text = speed.ToString();
+                    await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        SpeedTextBlock.Text = speed.ToString();
+                    });
                     if (LastCoordinate != null)
                     {
                         TotalDistance += Coordinates.Distance(LastCoordinate.Point.Position.Latitude, LastCoordinate.Point.Position.Longitude, latitude, longitude, 'K');
-                        DistanceTextBlock.Text = TotalDistance.ToString(); 
+                        await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            DistanceTextBlock.Text = Math.Round(TotalDistance, 2).ToString();
+                        });
                     }
                     LastCoordinate = args.Position.Coordinate;
 
