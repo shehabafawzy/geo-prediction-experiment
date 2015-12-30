@@ -23,6 +23,8 @@ using System.Threading.Tasks;
 using Windows.System.Display;
 using GeoPredictionApp.WP8.Views;
 using Windows.Storage;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -82,6 +84,31 @@ namespace GeoPredictionApp.WP8
             this.UnhandledException += App_UnhandledException;
         }
 
+        private void ApplicationWindow_VisiblityChanged(object sender, Windows.UI.Core.VisibilityChangedEventArgs e)
+        {
+            if (!e.Visible)
+            {
+                // Application went to background
+                ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
+                XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+                XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+
+                // Set the text on the toast. 
+                // The first line of text in the ToastText02 template is treated as header text, and will be bold.
+                toastTextElements[0].AppendChild(toastXml.CreateTextNode("Warning!"));
+                toastTextElements[1].AppendChild(toastXml.CreateTextNode("Tracking may stop in the background."));
+
+                // Create the actual toast object using this toast specification.
+                ToastNotification toast = new ToastNotification(toastXml);
+
+                // Send the toast
+                ToastNotificationManager.CreateToastNotifier().Show(toast);
+            }
+            else
+            {
+                // Application is FullScreen again
+            }
+        }
 
         async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -190,6 +217,9 @@ namespace GeoPredictionApp.WP8
                 }
             }
 
+
+            Window.Current.VisibilityChanged += ApplicationWindow_VisiblityChanged;
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -220,6 +250,9 @@ namespace GeoPredictionApp.WP8
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        
+        
 
     }
 }
