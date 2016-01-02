@@ -74,7 +74,7 @@ namespace GeoPredictionApp.WP8
                     Latitude = latitude,
                     Longitude = longitude,
                     Heading = heading,
-                    Speed = speed,
+                    Speed = speed == null ? 0 : Convert.ToInt32(speed),
                     TimestampUTC = timestamp.ToUniversalTime().DateTime,
                     Ticks = timestamp.ToUniversalTime().Ticks,
                     HHMMSSUTC = timestamp.ToUniversalTime().TimeOfDay.ToString(),

@@ -38,6 +38,8 @@ namespace GeoPredictionApp.WP8.Views
         double TotalDistance = 0;
         Geocoordinate LastCoordinate;
         DispatcherTimer dispatcherTimer;
+        private int count = 0;
+
         public DetailsPage()
         {
             this.InitializeComponent();
@@ -77,19 +79,22 @@ namespace GeoPredictionApp.WP8.Views
                         Latitude = latitude,
                         Longitude = longitude,
                         Heading = heading,
-                        Speed = speed,
+                        Speed = speed == null ? 0:Convert.ToInt32(speed),
                         TimestampUTC = timestamp.ToUniversalTime().DateTime,
                         Ticks = timestamp.ToUniversalTime().Ticks,
                         HHMMSSUTC = timestamp.ToUniversalTime().TimeOfDay.ToString(),
                         UniqueDeviceId = App.DeviceUniqueIdentifier,
                         Name = Username,
-                        ReverseGeocode = "N/A"
+                        ReverseGeocode = "N/A",
+                        DurationInMinutes = timestamp.ToUniversalTime().DateTime.Hour * 60 + timestamp.ToUniversalTime().DateTime.Minute,
+                        Start = App.start,
+                        End = App.End
                     };
 
                     //update ui
                     await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        SpeedTextBlock.Text = speed.ToString();
+                        SpeedTextBlock.Text = speed.ToString().Split('.')[0];
                     });
                     if (LastCoordinate != null)
                     {

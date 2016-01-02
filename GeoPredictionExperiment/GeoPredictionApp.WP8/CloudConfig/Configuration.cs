@@ -19,11 +19,11 @@ namespace GeoPredictionApp.WP8.CloudConfig
         {
             try
             {
-                InputEventHubName = "carmonitoreh";
-                ServiceBusNamespace = "carmonitorns";
-                EventHubSharedAccessPolicyKey = "f8jvK798EEI1fXVvzobGcgZsW0CWFYK2RPmlVTd/nJI=";
-                EventHubSharedAccessPolicyKeyName = "Sender";
-                EventHubSharedAccessPolicyTTL = 525600;
+                InputEventHubName = "temp";
+                ServiceBusNamespace = "newcarsb";
+                EventHubSharedAccessPolicyKey = "msDiD8y+woLwucn9VhI9hDYDmC2omD2nOROVbWLO7sk=";
+                EventHubSharedAccessPolicyKeyName = "Allinone";
+                EventHubSharedAccessPolicyTTL = 4320;
                 Configured = true;
             }
             catch (Exception e)

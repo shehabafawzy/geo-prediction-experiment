@@ -25,6 +25,7 @@ using GeoPredictionApp.WP8.Views;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
+using Windows.Phone.UI.Input;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -39,6 +40,8 @@ namespace GeoPredictionApp.WP8
         /// Allows tracking page views, exceptions and other telemetry through the Microsoft Application Insights service.
         /// </summary>
         public static TelemetryClient TelemetryClient;
+        public static string start = "";
+        public static string End = "";
 
         private TransitionCollection transitions;
 
@@ -82,6 +85,18 @@ namespace GeoPredictionApp.WP8
 
             // ensure general app exceptions are handled
             this.UnhandledException += App_UnhandledException;
+
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+        }
+
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame != null && rootFrame.CanGoBack)
+            {
+                e.Handled = true;
+                rootFrame.GoBack();
+            }
         }
 
         private void ApplicationWindow_VisiblityChanged(object sender, Windows.UI.Core.VisibilityChangedEventArgs e)
@@ -210,7 +225,7 @@ namespace GeoPredictionApp.WP8
                 }
                 else
                 {
-                    if (!rootFrame.Navigate(typeof(DetailsPage), e.Arguments))
+                    if (!rootFrame.Navigate(typeof(LocationDestination), e.Arguments))
                     {
                         throw new Exception("Failed to create initial page");
                     } 
