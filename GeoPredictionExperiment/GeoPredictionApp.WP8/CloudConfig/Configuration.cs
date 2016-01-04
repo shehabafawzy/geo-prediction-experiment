@@ -19,9 +19,12 @@ namespace GeoPredictionApp.WP8.CloudConfig
         {
             try
             {
-                InputEventHubName = "temp";
-                ServiceBusNamespace = "newcarsb";
-                EventHubSharedAccessPolicyKey = "msDiD8y+woLwucn9VhI9hDYDmC2omD2nOROVbWLO7sk=";
+                InputEventHubName = "carmonitoreh";
+                ServiceBusNamespace = "carmonitorns";
+                EventHubSharedAccessPolicyKey = "qzZ7vJtOctefhVZ0/gbFPXe5/SNXxgIUKuCeBxYOCIw=";
+                //InputEventHubName = "temp";
+                //ServiceBusNamespace = "newcarsb";
+                //EventHubSharedAccessPolicyKey = "msDiD8y+woLwucn9VhI9hDYDmC2omD2nOROVbWLO7sk=";
                 EventHubSharedAccessPolicyKeyName = "Allinone";
                 EventHubSharedAccessPolicyTTL = 4320;
                 Configured = true;

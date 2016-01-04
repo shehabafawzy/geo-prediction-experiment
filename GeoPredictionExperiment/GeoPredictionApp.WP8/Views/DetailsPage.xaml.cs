@@ -80,7 +80,7 @@ namespace GeoPredictionApp.WP8.Views
                         Longitude = longitude,
                         Heading = heading,
                         Speed = speed == null ? 0:Convert.ToInt32(speed),
-                        TimestampUTC = timestamp.ToUniversalTime().DateTime,
+                        TimestampUTC = timestamp.ToUniversalTime().DateTime.ToString("dd/MM/yyyy hh:mm:ss"),
                         Ticks = timestamp.ToUniversalTime().Ticks,
                         HHMMSSUTC = timestamp.ToUniversalTime().TimeOfDay.ToString(),
                         UniqueDeviceId = App.DeviceUniqueIdentifier,
@@ -111,7 +111,7 @@ namespace GeoPredictionApp.WP8.Views
                     //["SuccessCounter"] = SuccessCount;
                 }
                 catch (Exception e)
-                {
+                 {
                     ErrorCount++;
                     //DefaultViewModel["ErrorCounter"] = ErrorCount;
                     //DefaultViewModel["LastError"] = e.Message + "\n" + e.StackTrace;

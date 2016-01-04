@@ -12,7 +12,7 @@ namespace GeoPrediction.Portable.Entities
         public double? Heading { get; set; }
         public double Altitude { get; set; }
         public int Speed { get; set; }
-        public DateTime TimestampUTC { get; set; }
+        public string TimestampUTC { get; set; }
         public long Ticks { get; set; }
         public string HHMMSSUTC { get; set; }
         public string ReverseGeocode { get; set; }
